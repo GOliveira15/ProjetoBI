@@ -1,0 +1,40 @@
+{
+	"name": "Bike_AzureSQL_Fact",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute Pipeline1",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Execute Pipeline1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
+			}
+		],
+		"folder": {
+			"name": "Bike"
+		},
+		"annotations": []
+	}
+}
