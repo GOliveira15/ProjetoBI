@@ -1,0 +1,9 @@
+{
+	"name": "ProjetoBI-ADF",
+	"location": "brazilsouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6690e394-b18b-4777-8f71-c3f6a4659f2c",
+		"tenantId": "cf72e2bd-7a2b-4783-bdeb-39d57b07f76f"
+	}
+}
