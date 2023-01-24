@@ -1,5 +1,5 @@
 {
-	"name": "Bike_AzureSQL_Fact",
+	"name": "Sales_AzureSQL_Fact",
 	"properties": {
 		"activities": [
 			{
@@ -33,7 +33,7 @@
 			}
 		],
 		"folder": {
-			"name": "Bike"
+			"name": "Sales"
 		},
 		"annotations": []
 	}

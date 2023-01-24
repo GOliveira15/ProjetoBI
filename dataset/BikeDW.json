@@ -1,0 +1,24 @@
+{
+	"name": "BikeDW",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "BikeDW",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TABELA": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "stg",
+			"table": {
+				"value": "@dataset().TABELA",
+				"type": "Expression"
+			}
+		}
+	}
+}

@@ -1,5 +1,5 @@
 {
-	"name": "Sales_AzureSQL_Dimensions",
+	"name": "Prod_AzureSQL_Dimensions",
 	"properties": {
 		"activities": [
 			{
@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT\nTABLE_SCHEMA,\nTABLE_NAME\n\nFROM\nINFORMATION_SCHEMA.TABLES\n\nWHERE\nTABLE_SCHEMA = 'sales' AND\n\nTABLE_NAME in (\n    'customers',\n    'order_items',\n    'orders',\n    'staffs',\n    'stores'\n)",
+						"sqlReaderQuery": "SELECT\nTABLE_SCHEMA,\nTABLE_NAME\n\nFROM\nINFORMATION_SCHEMA.TABLES\n\nWHERE\nTABLE_SCHEMA = 'production' AND\n\nTABLE_NAME in (\n    'brands',\n    'categories',\n    'products',\n    'stocks'\n)",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -72,7 +72,7 @@
 								"sink": {
 									"type": "AzureSqlSink",
 									"preCopyScript": {
-										"value": "@{concat('DROP TABLE IF EXISTS stg.Sales_', item().TABLE_NAME)}",
+										"value": "@{concat('DROP TABLE IF EXISTS stg.Prod_', item().TABLE_NAME)}",
 										"type": "Expression"
 									},
 									"writeBehavior": "insert",
@@ -104,7 +104,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"TABELA": {
-											"value": "@concat('Sales_', item().TABLE_NAME)",
+											"value": "@concat('Prod_', item().TABLE_NAME)",
 											"type": "Expression"
 										}
 									}
@@ -140,7 +140,7 @@
 			}
 		],
 		"folder": {
-			"name": "Sales"
+			"name": "Production"
 		},
 		"annotations": []
 	}
