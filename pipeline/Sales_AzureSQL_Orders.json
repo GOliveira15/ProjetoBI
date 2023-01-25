@@ -1,22 +1,26 @@
 {
-	"name": "Sales_AzureSQL_Fact",
+	"name": "Sales_AzureSQL_Orders",
 	"properties": {
 		"activities": [
 			{
-				"name": "Execute Pipeline1",
+				"name": "PipelineDIM",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Sales_AzureSQL_Dimensions",
+						"type": "PipelineReference"
+					},
 					"waitOnCompletion": true
 				}
 			},
 			{
-				"name": "Stored procedure1",
+				"name": "Orders",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Execute Pipeline1",
+						"activity": "PipelineDIM",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -29,7 +33,14 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dw].[SALES_UPSERT_FACT_Orders]"
+				},
+				"linkedServiceName": {
+					"referenceName": "BikeDW",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
