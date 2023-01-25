@@ -152,10 +152,10 @@ GO
 --> Para controle <--
 
 --> OrderItems
-DROP TABLE IF EXISTS [dw].[Sales__OrderItems]
+DROP TABLE IF EXISTS [dw].[Sales_FACT_OrderItems]
 GO
 
-CREATE TABLE [dw].[Sales__OrderItems](
+CREATE TABLE [dw].[Sales_FACT_OrderItems](
     [SKOrder] [int] NOT NULL,
     [SKItem] [int] IDENTITY NOT NULL,
     [SKProduct] [int] NOT NULL,
@@ -167,14 +167,14 @@ CREATE TABLE [dw].[Sales__OrderItems](
     [isActive] [bit] NOT NULL
 )
 
-SELECT * FROM [dw].[Sales__OrderItems]
+SELECT * FROM [dw].[Sales_FACT_OrderItems]
 GO
 
 --> Stocks
-DROP TABLE IF EXISTS [dw].[Prod__Stocks]
+DROP TABLE IF EXISTS [dw].[Prod_FACT_Stocks]
 GO
 
-CREATE TABLE [dw].[Prod__Stocks](
+CREATE TABLE [dw].[Prod_FACT_Stocks](
     [SKStore] [int] NOT NULL,
     [SKProduct] [int] NOT NULL,
     [Quantity] [int] NOT NULL,
@@ -183,5 +183,24 @@ CREATE TABLE [dw].[Prod__Stocks](
     [isActive] [bit] NOT NULL
 )
 
-SELECT * FROM [dw].[Prod__Stocks]
+SELECT * FROM [dw].[Prod_FACT_Stocks]
+GO
+
+--> Log Exec
+DROP TABLE IF EXISTS  [dw].[BIKE_LogExec]
+GO
+
+CREATE TABLE [dw].[BIKE_LogExec](
+	[SK] [int] IDENTITY(1,1) NOT NULL,
+	[Type] [varchar](2) NULL,
+	[Procedure] [varchar](50) NULL,
+	[Object] [varchar](255) NULL,
+	[Description] [varchar](255) NULL,
+	[Quantity] [int] NULL,
+	[ExecTime] [varchar](40) NULL,
+	[Startime] [datetime] NULL,
+	[Endtime] [datetime] NULL
+) ON [PRIMARY]
+
+SELECT * FROM [dw].[BIKE_LogExec]
 GO
