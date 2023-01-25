@@ -1,5 +1,5 @@
 {
-	"name": "Prod_AzureSQL_Fact",
+	"name": "Prod_AzureSQL_Stocks",
 	"properties": {
 		"activities": [
 			{

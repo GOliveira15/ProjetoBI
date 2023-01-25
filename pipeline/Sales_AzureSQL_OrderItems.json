@@ -1,5 +1,5 @@
 {
-	"name": "Sales_AzureSQL_Orders",
+	"name": "Sales_AzureSQL_OrderItems",
 	"properties": {
 		"activities": [
 			{
@@ -9,14 +9,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "Sales_AzureSQL_Dimensions",
+						"referenceName": "Sales_AzureSQL_Orders",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
 				}
 			},
 			{
-				"name": "Orders",
+				"name": "OrderItems",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -35,7 +35,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dw].[SALES_UPSERT_FACT_Orders]"
+					"storedProcedureName": "[dw].[SALES_UPSERT_FACT_OrderItems]"
 				},
 				"linkedServiceName": {
 					"referenceName": "BikeDW",
