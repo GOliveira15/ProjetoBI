@@ -1,5 +1,5 @@
 {
-	"name": "Sales_AzureSQL_Fact",
+	"name": "Prod_AzureSQL_Fact",
 	"properties": {
 		"activities": [
 			{
@@ -9,14 +9,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "Sales_AzureSQL_Dimensions",
+						"referenceName": "Prod_AzureSQL_Dimensions",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
 				}
 			},
 			{
-				"name": "Orders",
+				"name": "Stocks",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -35,34 +35,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dw].[SALES_UPSERT_FACT_Orders]"
-				},
-				"linkedServiceName": {
-					"referenceName": "BikeDW",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "OrderItems",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Orders",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dw].[SALES_UPSERT_FACT_OrderItems]"
+					"storedProcedureName": "[dw].[PROD_UPSERT_FACT_Stocks]"
 				},
 				"linkedServiceName": {
 					"referenceName": "BikeDW",
@@ -71,7 +44,7 @@
 			}
 		],
 		"folder": {
-			"name": "Sales"
+			"name": "Production"
 		},
 		"annotations": []
 	}

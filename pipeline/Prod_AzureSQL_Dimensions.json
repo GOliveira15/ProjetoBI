@@ -133,6 +133,9 @@
 					"secureInput": false
 				},
 				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dw].[PROD_MERGE_DIMENSIONS]"
+				},
 				"linkedServiceName": {
 					"referenceName": "BikeDW",
 					"type": "LinkedServiceReference"
