@@ -10,7 +10,7 @@ BEGIN
 
 	DECLARE @Procedure VARCHAR(255) = '[dw].[SALES_UPSERT_FACT_OrderItems]'
 	DECLARE @Object VARCHAR(255) = '[dw].[Sales_FACT_OrderItems]'
-	DECLARE @Description VARCHAR(255) = 'Procedure que insere o estoque.'
+	DECLARE @Description VARCHAR(255) = 'Procedure que insere os itens do pedido.'
 	DECLARE @Quantity VARCHAR(255)
 	DECLARE @Type VARCHAR(10)
 	DECLARE @ExecTime VARCHAR(240)
@@ -20,10 +20,11 @@ BEGIN
 	
 	BEGIN TRY
 
-		--> Atualiza quando o estoque é alterado
+		--> Atualiza os itens do pedido
 		UPDATE K
 		SET 
             K.SKOrder = ISNULL(B.SKOrder, -1),
+			K.SKItem = A.item_id,
             K.SKProduct = ISNULL(C.SKProduct, -1),
             K.Quantity = A.quantity,
             K.ListPrice = A.list_price,
@@ -38,11 +39,12 @@ BEGIN
 				ON A.product_id = C.NKProduct
 
 			LEFT JOIN [dw].[Sales_FACT_OrderItems] K ON
-				A.order_id = K.SKOrder
+				A.item_id = K.SKItem
 
-		WHERE A.order_id IN (SELECT L.SKOrder FROM [dw].[Sales_FACT_OrderItems] L)
+		WHERE A.item_id IN (SELECT L.SKItem FROM [dw].[Sales_FACT_OrderItems] L)
 			AND K.isActive = 1
 			OR (ISNULL(B.SKOrder, -1)					<> K.SKOrder
+			OR A.item_id								<> K.SKItem
 			OR ISNULL(C.SKProduct, -1)					<> K.SKProduct
 			OR A.quantity								<> K.Quantity
             OR A.list_price								<> K.ListPrice
@@ -52,6 +54,7 @@ BEGIN
 		INSERT INTO [dw].[Sales_FACT_OrderItems]
 		SELECT
 			ISNULL(B.SKOrder, -1)					AS SKOrder,
+			A.item_id								AS SKItem,
 			ISNULL(C.SKProduct, -1)					AS SKProduct,
 			A.quantity								AS Quantity,
             A.list_price							AS ListPrice,
@@ -69,7 +72,7 @@ BEGIN
 			LEFT JOIN [dw].[Prod_DIM_Products] C
 				ON A.product_id = C.NKProduct
 
-		WHERE A.order_id NOT IN (SELECT K.SKOrder FROM [dw].[Sales_FACT_OrderItems] K)
+		WHERE A.item_id NOT IN (SELECT K.SKItem FROM [dw].[Sales_FACT_OrderItems] K)
 
 		--> Insere o Log de Execução
 		SET @Endtime = DATEADD(HOUR,-3,GETDATE()) 

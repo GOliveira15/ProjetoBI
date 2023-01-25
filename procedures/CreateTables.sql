@@ -15,7 +15,7 @@ CREATE TABLE [dw].[Sales_DIM_Customers](
     [NKCustomer] [varchar](500) NOT NULL,
     [FirstName] [varchar](250) NOT NULL,
     [LastName] [varchar](250) NOT NULL,
-    [Phone] [varchar](50) NOT NULL,
+    [Phone] [varchar](50) NULL,
     [Email] [varchar](100) NOT NULL,
     [Street] [varchar](100) NOT NULL,
     [City] [varchar](100) NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE [dw].[Sales_FACT_Orders](
     [OrderStatus] [int] NOT NULL,
     [OrderDate] [datetime] NOT NULL,
     [RequiredDate] [datetime] NOT NULL,
-    [ShippedDate] [datetime] NOT NULL,
+    [ShippedDate] [datetime] NULL,
     [SKStore] [int] NOT NULL,
     [SKStaff] [int] NOT NULL,
     [InsertDate] [datetime] NOT NULL,
@@ -156,8 +156,9 @@ DROP TABLE IF EXISTS [dw].[Sales_FACT_OrderItems]
 GO
 
 CREATE TABLE [dw].[Sales_FACT_OrderItems](
+    [SKOrderItem] [int] IDENTITY NOT NULL,
     [SKOrder] [int] NOT NULL,
-    [SKItem] [int] IDENTITY NOT NULL,
+    [SKItem] [int] NOT NULL,
     [SKProduct] [int] NOT NULL,
     [Quantity] [int] NOT NULL,
     [ListPrice] [decimal](18,2) NOT NULL,
@@ -175,6 +176,7 @@ DROP TABLE IF EXISTS [dw].[Prod_FACT_Stocks]
 GO
 
 CREATE TABLE [dw].[Prod_FACT_Stocks](
+    [SKStock] [int] IDENTITY NOT NULL,
     [SKStore] [int] NOT NULL,
     [SKProduct] [int] NOT NULL,
     [Quantity] [int] NOT NULL,
